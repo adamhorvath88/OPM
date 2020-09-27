@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="OPM" nsURI="org.iso.opm" nsPrefix="org.iso.opm">
+  <eClassifiers xsi:type="ecore:EEnum" name="Affiliation">
+    <eLiterals name="Systemic"/>
+    <eLiterals name="Environmental" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Diagram" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//Link"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="things" upperBound="-1"
+        eType="#//Thing"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entity" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Essence">
+    <eLiterals name="Physical"/>
+    <eLiterals name="Informatical" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Fan"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InPort" eSuperTypes="#//Port">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ingress" upperBound="-1"
+        eType="#//Link"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operator" eType="#//LogicalOperator"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Link" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LogicalOperator" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Multiplicity" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerBound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperBound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Object" eSuperTypes="#//Thing">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressedStates" upperBound="-1"
+        eType="#//State"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="suppressedStates" upperBound="-1"
+        eType="#//State"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="objects" eType="#//Object"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPM">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="SD0" lowerBound="1" eType="#//Diagram"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OutPort" eSuperTypes="#//Port">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="egress" upperBound="-1"
+        eType="#//Link"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fan" eType="#//Fan"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Perseverance">
+    <eLiterals name="Transient"/>
+    <eLiterals name="Persistent" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProceduralLink" eSuperTypes="#//Link #//Multiplicity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Process" eSuperTypes="#//Thing">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="limits" eType="#//Triple"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="State">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EShort"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ports" upperBound="-1"
+        eType="#//Port"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StructuralLink" eSuperTypes="#//Link #//Multiplicity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Thing" abstract="true" interface="true"
+      eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="affiliation" eType="#//Affiliation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="essence" eType="#//Essence"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="perseverance" eType="#//Perseverance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processes" upperBound="-1"
+        eType="#//Process"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ports" upperBound="-1"
+        eType="#//Port"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionLink" eSuperTypes="#//Link"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Triple">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nominal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+</ecore:EPackage>
